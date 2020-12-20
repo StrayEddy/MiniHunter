@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/skies/Cartoon Base NightSky Equirect.png" type="Texture" id=1]
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 1 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+background_color = Color( 0.545098, 0.545098, 0.545098, 1 )
+ambient_light_color = Color( 0.92549, 0.905882, 0.905882, 1 )
+ambient_light_sky_contribution = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.859683, -0.352658, 0.369564, 0, 0.723461, 0.690365, -0.510828, -0.593495, 0.621947, 0, 0, 0 )
