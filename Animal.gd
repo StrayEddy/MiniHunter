@@ -25,8 +25,10 @@ func _on_DangerTimer_timeout():
 func _on_ThinkTimer_timeout():
 	if Global.randb():
 		state = "eating"
+		$Deer/AnimationPlayer.play("Eat")
 	else:
 		state = "walking"
+		$Deer/AnimationPlayer.play("Walk")
 
 func is_player_closeby():
 	return player.translation.distance_to(translation) < 5
