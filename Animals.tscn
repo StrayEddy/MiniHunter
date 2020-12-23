@@ -4,3 +4,4 @@
 
 [node name="Animals" type="Spatial"]
 script = ExtResource( 1 )
+max_number_of_animals = 5

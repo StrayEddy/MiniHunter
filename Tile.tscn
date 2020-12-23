@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Tile.gd" type="Script" id=1]
 
@@ -12,72 +12,25 @@ albedo_color = Color( 0.141176, 0.305882, 0.0588235, 1 )
 resource_local_to_scene = true
 extents = Vector3( 1, 0.75, 1 )
 
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 1.875, 0.75, 1 )
-
-[sub_resource type="BoxShape" id=5]
-extents = Vector3( 3.625, 0.75, 1 )
-
-[node name="Tile" type="Spatial" groups=[
+[node name="Tile" type="StaticBody" groups=[
 "Tile",
 ]]
 script = ExtResource( 1 )
 
-[node name="Small" type="StaticBody" parent="."]
-visible = false
-
-[node name="CSGBox" type="CSGBox" parent="Small"]
+[node name="CSGBox" type="CSGBox" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.883035, 0 )
-width = 1.75
+width = 8.75
 height = 1.0
-depth = 1.75
+depth = 8.75
 material = SubResource( 1 )
 
-[node name="CSGBox2" type="CSGBox" parent="Small"]
+[node name="CSGBox2" type="CSGBox" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.250579, 0 )
+width = 10.0
 height = 0.5
+depth = 10.0
 material = SubResource( 2 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Small"]
+[node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0 )
 shape = SubResource( 3 )
-
-[node name="Medium" type="StaticBody" parent="."]
-visible = false
-
-[node name="CSGBox" type="CSGBox" parent="Medium"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.883035, 0 )
-width = 3.5
-height = 1.0
-depth = 1.75
-material = SubResource( 1 )
-
-[node name="CSGBox2" type="CSGBox" parent="Medium"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.250579, 0 )
-width = 3.75
-height = 0.5
-material = SubResource( 2 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Medium"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0 )
-shape = SubResource( 4 )
-
-[node name="Large" type="StaticBody" parent="."]
-visible = false
-
-[node name="CSGBox" type="CSGBox" parent="Large"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.883035, 0 )
-width = 7.0
-height = 1.0
-depth = 1.75
-material = SubResource( 1 )
-
-[node name="CSGBox2" type="CSGBox" parent="Large"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.250579, 0 )
-width = 7.25
-height = 0.5
-material = SubResource( 2 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Large"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0 )
-shape = SubResource( 5 )

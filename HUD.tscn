@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://HUD.gd" type="Script" id=1]
+[ext_resource path="res://assets/vectors/vision-indicator-full.png" type="Texture" id=2]
+
+[node name="HUD" type="Control" groups=[
+"HUD",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VisionIndicator" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -31.5001
+margin_top = -75.0
+margin_right = 83.5
+margin_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+rect_scale = Vector2( 0.55, 0.5 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
