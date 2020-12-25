@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/models/Material_001.material" type="Material" id=3]
 [ext_resource path="res://assets/models/Material_002.material" type="Material" id=4]
 
-[sub_resource type="ArrayMesh" id=11]
+[sub_resource type="ArrayMesh" id=1]
 resource_name = "Chest"
 surfaces/0 = {
 "aabb": AABB( -0.5, 0.5, -1, 1.00001, 1.00001, 2 ),
@@ -20,7 +20,7 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[sub_resource type="Skin" id=12]
+[sub_resource type="Skin" id=2]
 resource_name = "Skin"
 bind_count = 3
 bind/0/name = "bone"
@@ -33,7 +33,7 @@ bind/2/name = "bone_2"
 bind/2/bone = -1
 bind/2/pose = Transform( 1.62282, -1.62637e-16, -3.01261e-16, 3.01261e-16, 1.35676, 0.890373, 1.62637e-16, -0.890373, 1.35676, 2.2704e-17, -3.16719, 0.520574 )
 
-[sub_resource type="ArrayMesh" id=13]
+[sub_resource type="ArrayMesh" id=3]
 resource_name = "Head"
 surfaces/0 = {
 "aabb": AABB( -0.5, 1.75, 0.5, 1, 0.824561, 1.00001 ),
@@ -48,7 +48,7 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[sub_resource type="ArrayMesh" id=14]
+[sub_resource type="ArrayMesh" id=4]
 resource_name = "Nose"
 surfaces/0 = {
 "aabb": AABB( -0.2, 1.77832, 1.19082, 0.4, 0.4, 0.40001 ),
@@ -63,7 +63,7 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[sub_resource type="ArrayMesh" id=15]
+[sub_resource type="ArrayMesh" id=5]
 resource_name = "Woods"
 surfaces/0 = {
 "aabb": AABB( -1.59492, 2.34456, 0.718135, 3.18985, 1.46541, 1.12515 ),
@@ -78,7 +78,7 @@ surfaces/0 = {
 "vertex_count": 368
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=6]
 resource_name = "Eat"
 length = 3.33333
 loop = true
@@ -104,7 +104,7 @@ tracks/2/imported = true
 tracks/2/enabled = true
 tracks/2/keys = PoolRealArray( 0, 1, 0, 0, 0, 0.143205, 1.36239e-17, -2.59664e-17, 0.989693, 1, 1, 1, 3.33333, 1, 0, 0, 0, 0.143205, 1.36239e-17, -2.59664e-17, 0.989693, 1, 1, 1 )
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=7]
 resource_name = "Fall"
 length = 0.25
 tracks/0/type = "transform"
@@ -129,7 +129,7 @@ tracks/2/imported = true
 tracks/2/enabled = true
 tracks/2/keys = PoolRealArray( 0, 1, 0, 0, 0, -1.49012e-08, 8.27181e-25, 1.24077e-24, 1, 1, 1, 1, 0.0666667, 1, 0, 0, 0, 0.0129445, 8.32465e-25, 4.02848e-25, 0.999916, 1, 1, 1, 0.133333, 1, 0, 0, 0, 0.0855782, 1.03651e-24, 2.40165e-24, 0.996331, 1, 1, 1, 0.2, 1, 0, 0, 0, 0.175687, 2.13727e-24, 2.55945e-24, 0.984446, 1, 1, 1, 0.25, 1, 0, 0, 0, 0.207015, 1.96944e-17, -3.75365e-17, 0.978338, 1, 1, 1 )
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=8]
 resource_name = "Idle"
 length = 3.33333
 loop = true
@@ -155,7 +155,7 @@ tracks/2/imported = true
 tracks/2/enabled = true
 tracks/2/keys = PoolRealArray( 0, 1, 0, 0, 0, -1.49012e-08, 8.27181e-25, 1.24077e-24, 1, 1, 1, 1, 3.33333, 1, 0, 0, 0, -1.49012e-08, 8.27181e-25, 1.24077e-24, 1, 1, 1, 1 )
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=9]
 resource_name = "Jump"
 length = 0.25
 tracks/0/type = "transform"
@@ -228,28 +228,28 @@ bones/2/enabled = true
 bones/2/bound_children = [  ]
 
 [node name="Chest" type="MeshInstance" parent="Armature/Skeleton"]
-mesh = SubResource( 11 )
-skin = SubResource( 12 )
+mesh = SubResource( 1 )
+skin = SubResource( 2 )
 material/0 = null
 
 [node name="Head" type="MeshInstance" parent="Armature/Skeleton"]
-mesh = SubResource( 13 )
-skin = SubResource( 12 )
+mesh = SubResource( 3 )
+skin = SubResource( 2 )
 material/0 = null
 
 [node name="Nose" type="MeshInstance" parent="Armature/Skeleton"]
-mesh = SubResource( 14 )
-skin = SubResource( 12 )
+mesh = SubResource( 4 )
+skin = SubResource( 2 )
 material/0 = null
 
 [node name="Woods" type="MeshInstance" parent="Armature/Skeleton"]
-mesh = SubResource( 15 )
-skin = SubResource( 12 )
+mesh = SubResource( 5 )
+skin = SubResource( 2 )
 material/0 = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Eat = SubResource( 16 )
-anims/Fall = SubResource( 17 )
-anims/Idle = SubResource( 18 )
-anims/Jump = SubResource( 19 )
+anims/Eat = SubResource( 6 )
+anims/Fall = SubResource( 7 )
+anims/Idle = SubResource( 8 )
+anims/Jump = SubResource( 9 )
 anims/Walk = SubResource( 10 )
