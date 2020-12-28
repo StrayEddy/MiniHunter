@@ -8,7 +8,9 @@
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Camera.tscn" type="PackedScene" id=9]
 
-[node name="Level" type="Spatial"]
+[node name="Level" type="Spatial" groups=[
+"Level",
+]]
 script = ExtResource( 3 )
 
 [node name="WorldEnvironment" parent="." instance=ExtResource( 2 )]
@@ -19,7 +21,7 @@ script = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
 
 [node name="Animals" parent="." instance=ExtResource( 7 )]
-max_number_of_animals = 100
+max_number_of_animals = 25
 
 [node name="HUD" parent="." instance=ExtResource( 8 )]
 

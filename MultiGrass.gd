@@ -1,11 +1,5 @@
 extends Area
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	rotate_y(randi()%360)
+	rotate_y(Global.rng.randi()%360)

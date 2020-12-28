@@ -2,7 +2,7 @@ extends Node
 
 var rng = RandomNumberGenerator.new()
 
-func _ready():
+func _init():
 	rng.randomize()
 
 func randb():

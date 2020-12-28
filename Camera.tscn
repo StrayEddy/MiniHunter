@@ -4,4 +4,5 @@
 
 [node name="Camera" type="Camera"]
 size = 30.0
+far = 200.0
 script = ExtResource( 1 )

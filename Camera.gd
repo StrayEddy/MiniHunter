@@ -1,7 +1,7 @@
 extends Camera
 
 var player
-export var pos_diff = Vector3(-20, 20, 0)
+export var pos_diff = Vector3(-30, 30, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

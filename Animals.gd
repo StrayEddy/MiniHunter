@@ -1,6 +1,6 @@
 extends Spatial
 
-export var max_number_of_animals = 100
+export var max_number_of_animals = 25
 
 var animal_scene = load("res://Animal.tscn")
 var rng = RandomNumberGenerator.new()
@@ -19,7 +19,7 @@ func _process(delta):
 
 func add_animal():
 	var animal = animal_scene.instance()
-	animal.translation = Vector3(rand_range(-size/2, size/2), 0, rand_range(-size/2, size/2))
+	animal.translation = Vector3(Global.rng.randf_range(-size/2, size/2), 0, Global.rng.randf_range(-size/2, size/2))
 	add_child(animal)
 	
 	animal_count += 1

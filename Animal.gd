@@ -1,6 +1,7 @@
 extends Area
 
 var exclamation_scene = load("res://Exclamation.tscn")
+var track_scene = load("res://Track.tscn")
 
 var state = "walking"
 var level_of_alert = 0
@@ -9,13 +10,49 @@ var flee_speed = 15
 
 var player
 var hud
-
+var animals
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_tree().get_nodes_in_group("Player")[0]
 	hud = get_tree().get_nodes_in_group("HUD")[0]
+	animals = get_parent()
 	$Deer/AnimationPlayer.connect("animation_finished", self, "on_animation_finished")
+	build_path_of_tracks()
+
+func build_path_of_tracks():
+	var path = Path.new()
+	var curve = build_curve()
+	for i in range(0, curve.get_point_count()):
+		var pos = curve.get_point_position(i)
+		var angle = curve.get_point_tilt(i)
+		add_track_at(path, pos, angle)
+	
+	path.curve = curve
+	path.translation = self.translation
+	path.rotate_y(self.rotation.y) 
+	animals.add_child(path)
+
+func build_curve():
+	var curve = Curve3D.new()
+	var nb_points = 5 + Global.rng.randi()%3
+	var min_x = -25
+	var max_x = 25
+	var min_z = -25
+	var max_z = 25
+	
+	for i in range(0, nb_points):
+		var x = (i+1) * ((max_x - min_x) / nb_points)
+		var z = min_z + Global.rng.randf() * max_z
+		var point = Vector3(x, 0.1, z)
+		curve.add_point(point)
+	return curve
+
+func add_track_at(path, point, angle):
+	var track = track_scene.instance()
+	track.translation = point
+	track.rotation.y = angle
+	path.add_child(track)
 
 func _process(delta):
 	if state == "walking":
