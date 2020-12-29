@@ -2,7 +2,9 @@
 
 [ext_resource path="res://Camera.gd" type="Script" id=1]
 
-[node name="Camera" type="Camera"]
+[node name="Camera" type="Camera" groups=[
+"Camera",
+]]
 size = 30.0
 far = 200.0
 script = ExtResource( 1 )

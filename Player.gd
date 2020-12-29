@@ -14,9 +14,11 @@ var is_crouching = false
 var is_crawling = false
 
 var hud
+var camera
 
 func _ready():
 	hud = get_tree().get_nodes_in_group("HUD")[0]
+	camera = get_tree().get_nodes_in_group("Camera")[0]
 
 func _physics_process(delta):
 	get_movement_input(delta)
@@ -60,6 +62,8 @@ func get_movement_input(delta):
 			rotation_degrees = Vector3(0,90,0)
 		Vector2(1,-1):
 			rotation_degrees = Vector3(0,45,0)
+	if movement != 0:
+		rotation_degrees += Vector3(0, camera.rotation_degrees.y + 90, 0)
 	
 	if movement > 0:
 		var speed = 0
