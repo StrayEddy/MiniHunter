@@ -12,6 +12,7 @@ var velocity = 0
 var is_standing = true
 var is_crouching = false
 var is_crawling = false
+var is_aiming = false
 
 var hud
 var camera
@@ -113,33 +114,46 @@ func get_other_input():
 			elif is_crawling:
 					$CrawlTimer.stop()
 					get_in_stand_position()
+	if Input.is_action_just_pressed("ui_aim"):
+		print("is_aiming = " +  String(is_aiming))
+		print("is_crawling = " +  String(is_crawling))
+		if is_aiming:
+			is_aiming = false
+			if is_crawling:
+				$AnimationPlayer.play_backwards("AimCrawl")
+			else:
+				$AnimationPlayer.play_backwards("Aim")
+		else:
+			is_aiming = true
+			if is_crawling:
+				$AnimationPlayer.play("AimCrawl")
+			else:
+				$AnimationPlayer.play("Aim")
 
 func _on_CrawlTimer_timeout():
 	if not is_crawling:
 		get_in_crawl_position()
 
 func get_in_stand_position():
+	is_standing = true
+	is_crouching = false
+	is_crawling = false
 	if is_crouching:
 		$AnimationPlayer.play_backwards("Crouch")
 	elif is_crawling:
 		$AnimationPlayer.play_backwards("Crawl")
-	
-	is_standing = true
-	is_crouching = false
-	is_crawling = false
 
 func get_in_crouch_position():
-	$AnimationPlayer.play("Crouch")
 	is_standing = false
 	is_crouching = true
 	is_crawling = false
+	$AnimationPlayer.play("Crouch")
 
 func get_in_crawl_position():
-	$AnimationPlayer.play("Crawl")
 	is_standing = false
 	is_crouching = false
 	is_crawling = true
-
+	$AnimationPlayer.play("Crawl")
 
 func win():
 	print("I win")
@@ -176,3 +190,10 @@ func _on_VisionTimer_timeout():
 			level_of_cover = 0
 	
 	hud.update_vision_indicator(level_of_cover)
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name != "Aim" and anim_name != "AimCrawl":
+		if is_aiming and is_crawling:
+			$AnimationPlayer.play("AimCrawl")
+		elif is_aiming:
+			$AnimationPlayer.play("Aim")
