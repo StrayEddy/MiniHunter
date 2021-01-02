@@ -81,9 +81,8 @@ func get_movement_input(delta):
 		velocity = lerp(velocity, movement * speed, acceleration) * delta
 	else:
 		velocity = lerp(velocity, 0, friction) * delta
-		if is_standing:
-			if $AnimationPlayer.current_animation != "Idle":
-				$AnimationPlayer.play("Idle")
+		if is_standing and $AnimationPlayer.current_animation != "Idle" and $IdleTimer.is_stopped():
+			$IdleTimer.start()
 	
 	translate(Vector3(velocity, 0, 0))
 
@@ -101,22 +100,17 @@ func crawl():
 
 
 func get_other_input():
-	if Input.is_action_just_pressed("ui_accept"):
-		$CrawlTimer.start()
+	if Input.is_action_just_pressed("ui_select"):
+		if is_crawling:
+			get_in_stand_position()
+		else:
+			get_in_crawl_position()
 	if Input.is_action_just_released("ui_accept"):
-		if not $CrawlTimer.is_stopped():
-			if is_standing:
-					$CrawlTimer.stop()
-					get_in_crouch_position()
-			elif is_crouching:
-					$CrawlTimer.stop()
-					get_in_stand_position()
-			elif is_crawling:
-					$CrawlTimer.stop()
-					get_in_stand_position()
+		if is_crouching:
+			get_in_stand_position()
+		else:
+			get_in_crouch_position()
 	if Input.is_action_just_pressed("ui_aim"):
-		print("is_aiming = " +  String(is_aiming))
-		print("is_crawling = " +  String(is_crawling))
 		if is_aiming:
 			is_aiming = false
 			if is_crawling:
@@ -130,18 +124,14 @@ func get_other_input():
 			else:
 				$AnimationPlayer.play("Aim")
 
-func _on_CrawlTimer_timeout():
-	if not is_crawling:
-		get_in_crawl_position()
-
 func get_in_stand_position():
-	is_standing = true
-	is_crouching = false
-	is_crawling = false
 	if is_crouching:
 		$AnimationPlayer.play_backwards("Crouch")
 	elif is_crawling:
 		$AnimationPlayer.play_backwards("Crawl")
+	is_standing = true
+	is_crouching = false
+	is_crawling = false
 
 func get_in_crouch_position():
 	is_standing = false
@@ -154,6 +144,13 @@ func get_in_crawl_position():
 	is_crouching = false
 	is_crawling = true
 	$AnimationPlayer.play("Crawl")
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name != "Aim" and anim_name != "AimCrawl":
+		if is_aiming and is_crawling:
+			$AnimationPlayer.play("AimCrawl")
+		elif is_aiming:
+			$AnimationPlayer.play("Aim")
 
 func win():
 	print("I win")
@@ -191,9 +188,6 @@ func _on_VisionTimer_timeout():
 	
 	hud.update_vision_indicator(level_of_cover)
 
-func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name != "Aim" and anim_name != "AimCrawl":
-		if is_aiming and is_crawling:
-			$AnimationPlayer.play("AimCrawl")
-		elif is_aiming:
-			$AnimationPlayer.play("Aim")
+func _on_IdleTimer_timeout():
+	if not $AnimationPlayer.is_playing() and is_standing:
+		$AnimationPlayer.play("Idle")
