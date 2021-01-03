@@ -150,3 +150,9 @@ func _on_Animal_area_entered(area):
 func _on_CalmTimer_timeout():
 	if level_of_alert > 0:
 		level_of_alert -= 1
+
+func shot(damage):
+	die()
+
+func die():
+	queue_free()

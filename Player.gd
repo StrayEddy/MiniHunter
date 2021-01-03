@@ -22,7 +22,8 @@ func _ready():
 	camera = get_tree().get_nodes_in_group("Camera")[0]
 
 func _physics_process(delta):
-	get_movement_input(delta)
+	if not is_aiming:
+		get_movement_input(delta)
 	get_other_input()
 
 func get_movement_input(delta):
@@ -112,17 +113,27 @@ func get_other_input():
 			get_in_crouch_position()
 	if Input.is_action_just_pressed("ui_aim"):
 		if is_aiming:
-			is_aiming = false
-			if is_crawling:
-				$AnimationPlayer.play_backwards("AimCrawl")
-			else:
-				$AnimationPlayer.play_backwards("Aim")
+			stop_aim()
 		else:
-			is_aiming = true
-			if is_crawling:
-				$AnimationPlayer.play("AimCrawl")
-			else:
-				$AnimationPlayer.play("Aim")
+			aim()
+	if Input.is_action_just_pressed("ui_shoot") and is_aiming:
+		$Armature/Skeleton/BoneAttachment/Rifle.shoot()
+
+func aim():
+	is_aiming = true
+	$Armature/Skeleton/BoneAttachment/Rifle.aim()
+	if is_crawling:
+		$AnimationPlayer.play("AimCrawl")
+	else:
+		$AnimationPlayer.play("Aim")
+
+func stop_aim():
+	is_aiming = false
+	$Armature/Skeleton/BoneAttachment/Rifle.stop_aim()
+	if is_crawling:
+		$AnimationPlayer.play_backwards("AimCrawl")
+	else:
+		$AnimationPlayer.play_backwards("Aim")
 
 func get_in_stand_position():
 	if is_crouching:
@@ -146,7 +157,7 @@ func get_in_crawl_position():
 	$AnimationPlayer.play("Crawl")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name != "Aim" and anim_name != "AimCrawl":
+	if anim_name != "Aim" and anim_name != "AimCrawl" and anim_name != "Idle":
 		if is_aiming and is_crawling:
 			$AnimationPlayer.play("AimCrawl")
 		elif is_aiming:
@@ -189,5 +200,5 @@ func _on_VisionTimer_timeout():
 	hud.update_vision_indicator(level_of_cover)
 
 func _on_IdleTimer_timeout():
-	if not $AnimationPlayer.is_playing() and is_standing:
+	if not $AnimationPlayer.is_playing() and is_standing and not is_aiming:
 		$AnimationPlayer.play("Idle")

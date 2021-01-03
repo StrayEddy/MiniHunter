@@ -328,11 +328,11 @@ skin = SubResource( 3 )
 material/0 = null
 
 [node name="BoneAttachment" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 1, 1.19209e-07, 0, -1.19209e-07, 1, 0, 0, 0, 1, 5.96046e-08, -2.98023e-08, 0 )
+transform = Transform( -1.19209e-07, 1, 0, -1, -1.19209e-07, 0, 0, 0, 1, -0.36468, -0.467246, 0 )
 bone_name = "chest"
 
 [node name="Rifle" parent="Armature/Skeleton/BoneAttachment" instance=ExtResource( 5 )]
-transform = Transform( 0.75, 7.59562e-09, 3.60625e-08, 7.59563e-09, 0.686283, -0.302515, -3.60625e-08, 0.302515, 0.686283, 0.590138, 0.481635, -0.113719 )
+transform = Transform( -1.22191e-07, 0, -0.75, 0, 0.75, 0, 0.75, 0, -1.22191e-07, 0.590138, 0.481635, 0.572666 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Aim = SubResource( 12 )
