@@ -7,6 +7,7 @@ var state = "walking"
 var level_of_alert = 0
 var walk_speed = 5
 var flee_speed = 15
+var is_dead = false
 
 var player
 var hud
@@ -143,9 +144,8 @@ func on_animation_finished(anim_name):
 		$Deer/AnimationPlayer.play("Jump")
 
 func _on_Animal_area_entered(area):
-	if area.name == "Player":
-		player.win()
-		queue_free()
+	if is_dead and area.name == "Player":
+		pass
 
 func _on_CalmTimer_timeout():
 	if level_of_alert > 0:
@@ -155,4 +155,9 @@ func shot(damage):
 	die()
 
 func die():
-	queue_free()
+	is_dead = true
+	$Deer/AnimationPlayer.play("Die")
+	$DangerTimer.queue_free()
+	$CalmTimer.queue_free()
+	$Exclamation.queue_free()
+	$RayCastDownFront.queue_free()
