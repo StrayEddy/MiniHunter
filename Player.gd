@@ -164,7 +164,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			$AnimationPlayer.play("Aim")
 
 func retrieve_animal(value):
-	print("retrieved : " + String(value))
+	hud.add_coins(value)
 
 func die():
 	get_tree().reload_current_scene()

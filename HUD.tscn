@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/vectors/vision-indicator-full.png" type="Texture" id=2]
+[ext_resource path="res://assets/vectors/coin.png" type="Texture" id=3]
 
 [node name="HUD" type="Control" groups=[
 "HUD",
@@ -27,3 +28,32 @@ texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Coins" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -27.0
+margin_top = -94.0
+margin_right = 87.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Coins"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -442.0
+margin_top = -55.0
+margin_right = -402.0
+margin_bottom = -41.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_scale = Vector2( 10, 10 )
+text = "0"
+align = 2
+valign = 1
