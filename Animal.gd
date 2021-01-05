@@ -145,7 +145,11 @@ func on_animation_finished(anim_name):
 
 func _on_Animal_area_entered(area):
 	if is_dead and area.name == "Player":
-		pass
+		$Action.show_action("A", "Retrieve", self, "retrieved")
+
+func _on_Animal_area_exited(area):
+	if is_dead and area.name == "Player":
+		$Action.hide_action()
 
 func _on_CalmTimer_timeout():
 	if level_of_alert > 0:
@@ -161,3 +165,7 @@ func die():
 	$CalmTimer.queue_free()
 	$Exclamation.queue_free()
 	$RayCastDownFront.queue_free()
+
+func retrieved():
+	player.retrieve_animal(100)
+	queue_free()

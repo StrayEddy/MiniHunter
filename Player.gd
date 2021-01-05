@@ -101,22 +101,22 @@ func crawl():
 
 
 func get_other_input():
-	if Input.is_action_just_pressed("ui_select"):
+	if Input.is_action_just_pressed("ui_x"):
 		if is_crawling:
 			get_in_stand_position()
 		else:
 			get_in_crawl_position()
-	if Input.is_action_just_released("ui_accept"):
+	if Input.is_action_just_released("ui_b"):
 		if is_crouching:
 			get_in_stand_position()
 		else:
 			get_in_crouch_position()
-	if Input.is_action_just_pressed("ui_aim"):
+	if Input.is_action_just_pressed("ui_l"):
 		if is_aiming:
 			stop_aim()
 		else:
 			aim()
-	if Input.is_action_just_pressed("ui_shoot") and is_aiming:
+	if Input.is_action_just_pressed("ui_r") and is_aiming:
 		$Armature/Skeleton/BoneAttachment/Rifle.shoot()
 
 func aim():
@@ -163,8 +163,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		elif is_aiming:
 			$AnimationPlayer.play("Aim")
 
-func win():
-	print("I win")
+func retrieve_animal(value):
+	print("retrieved : " + String(value))
 
 func die():
 	get_tree().reload_current_scene()
