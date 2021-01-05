@@ -11,8 +11,16 @@ func highlight(b):
 
 func _on_Track_area_entered(area):
 	if area.name == "Player":
-		for track in get_tree().get_nodes_in_group("Track"):
+		$Action.show_action("A", "Follow", self, "follow")
+
+func follow():
+	for track in get_tree().get_nodes_in_group("Track"):
 			if track.get_parent() == get_parent():
 				track.highlight(true)
 			else:
 				track.highlight(false)
+
+
+func _on_Track_area_exited(area):
+	if area.name == "Player":
+		$Action.hide_action()

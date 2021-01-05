@@ -51,6 +51,8 @@ func show_action(button, label, object, method):
 			$Buttons/Y.show()
 	
 	match label:
+		"Follow":
+			$Labels/Follow.show()
 		"Retrieve":
 			$Labels/Retrieve.show()
 		"Shop":
