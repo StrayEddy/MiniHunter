@@ -15,13 +15,13 @@ func _ready():
 func _process(delta):
 	if is_shown:
 		look_at(camera.translation, Vector3.UP)
-		if button == "A" and Input.is_action_pressed("ui_a"):
+		if button == "A" and Input.is_action_just_pressed("ui_a"):
 			callback_object.call(callback_method)
-		elif button == "B" and Input.is_action_pressed("ui_b"):
+		elif button == "B" and Input.is_action_just_pressed("ui_b"):
 			callback_object.call(callback_method)
-		elif button == "X" and Input.is_action_pressed("ui_x"):
+		elif button == "X" and Input.is_action_just_pressed("ui_x"):
 			callback_object.call(callback_method)
-		elif button == "Y" and Input.is_action_pressed("ui_y"):
+		elif button == "Y" and Input.is_action_just_pressed("ui_y"):
 			callback_object.call(callback_method)
 
 func hide_all():

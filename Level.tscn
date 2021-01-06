@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Terrain.tscn" type="PackedScene" id=1]
 [ext_resource path="res://WorldEnvironment.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Level.gd" type="Script" id=3]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Cabin.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Animals.tscn" type="PackedScene" id=7]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Camera.tscn" type="PackedScene" id=9]
@@ -11,18 +12,26 @@
 [node name="Level" type="Spatial" groups=[
 "Level",
 ]]
+pause_mode = 2
 script = ExtResource( 3 )
+
+[node name="HUD" parent="." instance=ExtResource( 8 )]
+pause_mode = 2
 
 [node name="WorldEnvironment" parent="." instance=ExtResource( 2 )]
 
 [node name="Camera" parent="." instance=ExtResource( 9 )]
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
+pause_mode = 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
 
 [node name="Animals" parent="." instance=ExtResource( 7 )]
+pause_mode = 2
 max_number_of_animals = 25
 
-[node name="HUD" parent="." instance=ExtResource( 8 )]
-
 [node name="Terrain" parent="." instance=ExtResource( 1 )]
+pause_mode = 2
+
+[node name="Cabin" parent="Terrain" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6305, 0, -17.5759 )

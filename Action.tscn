@@ -13,7 +13,7 @@
 script = ExtResource( 7 )
 
 [node name="Buttons" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.568694, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.763613, 0, 0 )
 
 [node name="A" type="Sprite3D" parent="Buttons"]
 texture = ExtResource( 2 )
@@ -28,7 +28,7 @@ texture = ExtResource( 3 )
 texture = ExtResource( 4 )
 
 [node name="Labels" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.859849, 0, 0 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, -0.761261, 0, 0 )
 
 [node name="Follow" type="Sprite3D" parent="Labels"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199539, -0.0164028, 0 )

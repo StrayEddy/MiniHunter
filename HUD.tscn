@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/vectors/vision-indicator-full.png" type="Texture" id=2]
 [ext_resource path="res://assets/vectors/coin.png" type="Texture" id=3]
+[ext_resource path="res://assets/vectors/rifle.png" type="Texture" id=4]
 
 [node name="HUD" type="Control" groups=[
 "HUD",
@@ -57,3 +58,172 @@ rect_scale = Vector2( 10, 10 )
 text = "0"
 align = 2
 valign = 1
+
+[node name="Shop" type="VBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -309.189
+margin_right = -1.18921
+margin_bottom = 382.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rifle1" type="Control" parent="Shop"]
+margin_right = 308.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 0, 55 )
+focus_neighbour_bottom = NodePath("../Rifle2")
+focus_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Shop/Rifle1"]
+margin_right = 308.0
+margin_bottom = 54.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="Shop/Rifle1"]
+margin_left = 19.0
+margin_top = 14.0
+margin_right = 43.0
+margin_bottom = 28.0
+grow_horizontal = 0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coin" type="TextureRect" parent="Shop/Rifle1"]
+margin_left = 72.9028
+margin_top = 13.2142
+margin_right = 186.903
+margin_bottom = 147.214
+rect_scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="TextureRect" parent="Shop/Rifle1"]
+margin_left = 109.594
+margin_top = 13.4929
+margin_right = 470.594
+margin_bottom = 70.4929
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rifle2" type="Control" parent="Shop"]
+margin_top = 59.0
+margin_right = 308.0
+margin_bottom = 114.0
+rect_min_size = Vector2( 0, 55 )
+focus_neighbour_top = NodePath("../Rifle1")
+focus_neighbour_bottom = NodePath("../Rifle3")
+focus_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Shop/Rifle2"]
+margin_right = 308.0
+margin_bottom = 54.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="Shop/Rifle2"]
+margin_left = 19.0
+margin_top = 14.0
+margin_right = 43.0
+margin_bottom = 28.0
+grow_horizontal = 0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "100"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coin" type="TextureRect" parent="Shop/Rifle2"]
+margin_left = 72.9028
+margin_top = 13.2142
+margin_right = 186.903
+margin_bottom = 147.214
+rect_scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="TextureRect" parent="Shop/Rifle2"]
+margin_left = 109.594
+margin_top = 13.4929
+margin_right = 470.594
+margin_bottom = 70.4929
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rifle3" type="Control" parent="Shop"]
+margin_top = 118.0
+margin_right = 308.0
+margin_bottom = 173.0
+rect_min_size = Vector2( 0, 55 )
+focus_neighbour_top = NodePath("../Rifle2")
+focus_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Shop/Rifle3"]
+margin_right = 308.0
+margin_bottom = 54.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="Shop/Rifle3"]
+margin_left = 19.0
+margin_top = 14.0
+margin_right = 43.0
+margin_bottom = 28.0
+grow_horizontal = 0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "200"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coin" type="TextureRect" parent="Shop/Rifle3"]
+margin_left = 72.9028
+margin_top = 13.2142
+margin_right = 186.903
+margin_bottom = 147.214
+rect_scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="TextureRect" parent="Shop/Rifle3"]
+margin_left = 109.594
+margin_top = 13.4929
+margin_right = 470.594
+margin_bottom = 70.4929
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="focus_entered" from="Shop/Rifle1" to="." method="_on_Rifle1_focus_entered"]
+[connection signal="focus_exited" from="Shop/Rifle1" to="." method="_on_Rifle1_focus_exited"]
+[connection signal="focus_entered" from="Shop/Rifle2" to="." method="_on_Rifle2_focus_entered"]
+[connection signal="focus_exited" from="Shop/Rifle2" to="." method="_on_Rifle2_focus_exited"]
+[connection signal="focus_entered" from="Shop/Rifle3" to="." method="_on_Rifle3_focus_entered"]
+[connection signal="focus_exited" from="Shop/Rifle3" to="." method="_on_Rifle3_focus_exited"]
