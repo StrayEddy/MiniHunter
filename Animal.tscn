@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Animal.gd" type="Script" id=1]
 [ext_resource path="res://Deer.tscn" type="PackedScene" id=2]
@@ -7,6 +7,12 @@
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 1, 0.5 )
+
+[sub_resource type="Curve3D" id=2]
+_data = {
+"points": PoolVector3Array(  ),
+"tilts": PoolRealArray(  )
+}
 
 [node name="Animal" type="Area" groups=[
 "Animal",
@@ -39,7 +45,14 @@ visible = false
 [node name="Action" parent="." instance=ExtResource( 4 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 10.535, 0 )
 visible = false
+
+[node name="InjuryTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="PathOfTracks" type="Path" parent="."]
+curve = SubResource( 2 )
 [connection signal="area_entered" from="." to="." method="_on_Animal_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Animal_area_exited"]
 [connection signal="timeout" from="DangerTimer" to="." method="_on_DangerTimer_timeout"]
 [connection signal="timeout" from="CalmTimer" to="." method="_on_CalmTimer_timeout"]
+[connection signal="timeout" from="InjuryTimer" to="." method="_on_InjuryTimer_timeout"]

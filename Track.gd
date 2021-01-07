@@ -3,11 +3,23 @@ extends Area
 var default_mat = load("res://assets/models/Tracks_default.material")
 var highlighted_mat = load("res://assets/models/Tracks_highlighted.material")
 
+func setup(pos, angle, is_blood):
+	translation = pos
+	rotation.y = angle
+	if is_blood:
+		$Blood.visible = true
+		$Footprints.visible = false
+	else:
+		$Blood.visible = false
+		$Footprints.visible = true
+
 func highlight(b):
 	if b:
-		$Mesh.mesh.surface_set_material(0, highlighted_mat)
+		$Blood.mesh.surface_set_material(0, highlighted_mat)
+		$Footprints.mesh.surface_set_material(0, highlighted_mat)
 	else:
-		$Mesh.mesh.surface_set_material(0, default_mat)
+		$Blood.mesh.surface_set_material(0, default_mat)
+		$Footprints.mesh.surface_set_material(0, default_mat)
 
 func _on_Track_area_entered(area):
 	if area.name == "Player":

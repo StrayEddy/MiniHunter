@@ -7,11 +7,16 @@ var state = "walking"
 var level_of_alert = 0
 var walk_speed = 5
 var flee_speed = 15
+var health_points = 1.0 + Global.rng.randf() / 3
+
+var is_injured = false
 var is_dead = false
 
 var player
 var hud
 var animals
+
+var path_of_tracks = Path.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,17 +27,16 @@ func _ready():
 	build_path_of_tracks()
 
 func build_path_of_tracks():
-	var path = Path.new()
 	var curve = build_curve()
 	for i in range(0, curve.get_point_count()):
 		var pos = curve.get_point_position(i)
 		var angle = curve.get_point_tilt(i)
-		add_track_at(path, pos, angle)
+		add_track_at(pos, angle, false)
 	
-	path.curve = curve
-	path.translation = self.translation
-	path.rotate_y(self.rotation.y) 
-	animals.add_child(path)
+	path_of_tracks.curve = curve
+	path_of_tracks.translation = self.translation
+	path_of_tracks.rotate_y(self.rotation.y) 
+	animals.add_child(path_of_tracks)
 
 func build_curve():
 	var curve = Curve3D.new()
@@ -49,17 +53,17 @@ func build_curve():
 		curve.add_point(point)
 	return curve
 
-func add_track_at(path, point, angle):
+func add_track_at(point, angle, is_blood):
 	var track = track_scene.instance()
-	track.translation = point
-	track.rotation.y = angle
-	path.add_child(track)
+	track.setup(point, angle, is_blood)
+	path_of_tracks.add_child(track)
 
 func _process(delta):
-	if state == "walking":
-		move(walk_speed*delta)
-	elif state == "fleeing":
-		move(flee_speed*delta)
+	if not is_dead:
+		if state == "walking":
+			move(walk_speed*delta)
+		elif state == "fleeing":
+			move(flee_speed*delta)
 
 func move(speed):
 	translate(Vector3(1,0,0) * speed)
@@ -156,16 +160,30 @@ func _on_CalmTimer_timeout():
 		level_of_alert -= 1
 
 func shot(damage):
-	die()
+	is_injured = true
+	lose_health(damage)
+	$InjuryTimer.start()
+	level_of_alert = 4
+
+func lose_health(points):
+	health_points -= points
+	var blood_pos = translation - path_of_tracks.translation + Vector3(0,.1,0)
+	add_track_at(blood_pos, rotation.y, true)
+	if health_points <= 0:
+		die()
 
 func die():
 	is_dead = true
 	$Deer/AnimationPlayer.play("Die")
 	$DangerTimer.queue_free()
 	$CalmTimer.queue_free()
+	$InjuryTimer.queue_free()
 	$Exclamation.queue_free()
 	$RayCastDownFront.queue_free()
 
 func retrieved():
 	player.retrieve_animal(100)
 	queue_free()
+
+func _on_InjuryTimer_timeout():
+	lose_health(.5)
