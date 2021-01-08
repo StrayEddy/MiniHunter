@@ -28,7 +28,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
 
 [node name="Animals" parent="." instance=ExtResource( 7 )]
 pause_mode = 2
-max_number_of_animals = 25
+max_number_of_animals = 10
 
 [node name="Terrain" parent="." instance=ExtResource( 1 )]
 pause_mode = 2

@@ -26,23 +26,11 @@ func _ready():
 	$Deer/AnimationPlayer.connect("animation_finished", self, "on_animation_finished")
 	build_path_of_tracks()
 
-func build_path_of_tracks():
-	var curve = build_curve()
-	for i in range(0, curve.get_point_count()):
-		var pos = curve.get_point_position(i)
-		var angle = curve.get_point_tilt(i)
-		add_track_at(pos, angle, false)
-	
-	path_of_tracks.curve = curve
-	path_of_tracks.translation = self.translation
-	path_of_tracks.rotate_y(self.rotation.y) 
-	animals.add_child(path_of_tracks)
-
 func build_curve():
 	var curve = Curve3D.new()
 	var nb_points = 5 + Global.rng.randi()%3
-	var min_x = -25
-	var max_x = 25
+	var min_x = 0
+	var max_x = 100
 	var min_z = -25
 	var max_z = 25
 	
@@ -52,6 +40,23 @@ func build_curve():
 		var point = Vector3(x, 0.1, z)
 		curve.add_point(point)
 	return curve
+
+func build_path_of_tracks():
+	var curve = build_curve()
+	for i in range(0, curve.get_point_count()):
+		var pos = curve.get_point_position(i)
+		var angle
+		if i == curve.get_point_count() - 1:
+			angle = rotation.y
+		else:
+			var next_pos = curve.get_point_position(i+1)
+			angle = atan2(next_pos.z - pos.z, next_pos.x - pos.x)
+		add_track_at(pos, angle, false)
+	
+	path_of_tracks.curve = curve
+	path_of_tracks.translation = self.translation
+	path_of_tracks.rotate_y(self.rotation.y) 
+	animals.add_child(path_of_tracks)
 
 func add_track_at(point, angle, is_blood):
 	var track = track_scene.instance()

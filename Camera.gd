@@ -1,7 +1,7 @@
 extends Camera
 
 var player
-export var pos_diff = Vector3(-30, 30, 0)
+export var pos_diff = Vector3(0, 30, 30)
 
 var rotation_speed = 1
 

@@ -64,7 +64,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 4, 0 )
 shape = SubResource( 4 )
 
 [node name="Cabin" type="Spatial" parent="."]
-transform = Transform( 22.2717, 0, 0, 0, 0, 1.64864, 0, -22.2717, 0, 0, 0, 0 )
+transform = Transform( -3.62852e-06, -22.2717, -2.68598e-07, 0, -3.62852e-06, 1.64864, -22.2717, 3.62852e-06, 4.37601e-14, 0, 0, 0 )
 
 [node name="Cabin_1" type="MeshInstance" parent="Cabin"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.735156 )

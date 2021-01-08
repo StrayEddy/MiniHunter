@@ -65,7 +65,7 @@ func get_movement_input(delta):
 		Vector2(1,-1):
 			rotation_degrees = Vector3(0,45,0)
 	if movement != 0:
-		rotation_degrees += Vector3(0, camera.rotation_degrees.y + 90, 0)
+		rotation_degrees += Vector3(0, camera.rotation_degrees.y, 0)
 	
 	if movement > 0:
 		var speed = 0
@@ -85,7 +85,7 @@ func get_movement_input(delta):
 		if is_standing and $AnimationPlayer.current_animation != "Idle" and $IdleTimer.is_stopped():
 			$IdleTimer.start()
 	
-	translate(Vector3(velocity, 0, 0))
+	translate(Vector3(0, 0, -velocity))
 
 func walk():
 	if $AnimationPlayer.current_animation != "Walk":

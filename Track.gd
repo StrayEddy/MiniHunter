@@ -24,6 +24,7 @@ func highlight(b):
 func _on_Track_area_entered(area):
 	if area.name == "Player":
 		$Action.show_action("A", "Follow", self, "follow")
+		$Range.visible = true
 
 func follow():
 	for track in get_tree().get_nodes_in_group("Track"):
@@ -36,3 +37,4 @@ func follow():
 func _on_Track_area_exited(area):
 	if area.name == "Player":
 		$Action.hide_action()
+		$Range.visible = false
