@@ -45,22 +45,21 @@ func build_path_of_tracks():
 	var curve = build_curve()
 	for i in range(0, curve.get_point_count()):
 		var pos = curve.get_point_position(i)
-		var angle
-		if i == curve.get_point_count() - 1:
-			angle = rotation.y
+		var target
+		if i == 0:
+			target = global_transform.origin
 		else:
-			var next_pos = curve.get_point_position(i+1)
-			angle = atan2(next_pos.z - pos.z, next_pos.x - pos.x)
-		add_track_at(pos, angle, false)
+			target = curve.get_point_position(i-1)
+		add_track_at(pos, target, false)
 	
 	path_of_tracks.curve = curve
 	path_of_tracks.translation = self.translation
 	path_of_tracks.rotate_y(self.rotation.y) 
 	animals.add_child(path_of_tracks)
 
-func add_track_at(point, angle, is_blood):
+func add_track_at(point, target, is_blood):
 	var track = track_scene.instance()
-	track.setup(point, angle, is_blood)
+	track.setup(point, target, is_blood)
 	path_of_tracks.add_child(track)
 
 func _process(delta):
@@ -71,7 +70,7 @@ func _process(delta):
 			move(flee_speed*delta)
 
 func move(speed):
-	translate(Vector3(1,0,0) * speed)
+	translate(Vector3(0,0,-1) * speed)
 
 func _on_DangerTimer_timeout():
 	var new_alert_level = 0
@@ -112,7 +111,7 @@ func _on_DangerTimer_timeout():
 		flee()
 
 func update_rotation():
-	var forward = global_transform.basis.x.normalized()
+	var forward = -global_transform.basis.z.normalized()
 	var diff = (self.translation - player.translation).normalized()
 	var angle =  Vector2(diff.x, diff.z).angle_to(Vector2(forward.x, forward.z))
 	rotate_y(angle)
@@ -173,7 +172,7 @@ func shot(damage):
 func lose_health(points):
 	health_points -= points
 	var blood_pos = translation - path_of_tracks.translation + Vector3(0,.1,0)
-	add_track_at(blood_pos, rotation.y, true)
+	add_track_at(blood_pos, translation, true)
 	if health_points <= 0:
 		die()
 

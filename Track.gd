@@ -3,9 +3,8 @@ extends Area
 var default_mat = load("res://assets/models/Tracks_default.material")
 var highlighted_mat = load("res://assets/models/Tracks_highlighted.material")
 
-func setup(pos, angle, is_blood):
-	translation = pos
-	rotation.y = angle
+func setup(pos, target, is_blood):
+	look_at_from_position(pos, target, Vector3.UP)
 	if is_blood:
 		$Blood.visible = true
 		$Footprints.visible = false
