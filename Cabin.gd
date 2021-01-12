@@ -15,3 +15,4 @@ func _on_Cabin_area_exited(area):
 
 func shop():
 	hud.show_shop()
+	$AudioStreamPlayer.play()

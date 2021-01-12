@@ -10,6 +10,7 @@ var is_wobbling = false
 var is_reloading = false
 
 func aim():
+	$AimAudio.play()
 	$RayCast.show()
 	$RayCast.enabled = true
 	is_wobbling = true
@@ -24,6 +25,7 @@ func wobble():
 		$RayCast/WobbleTween.start()
 
 func stop_aim():
+	$AimAudio.play()
 	$RayCast.hide()
 	$RayCast.enabled = false
 	is_wobbling = false
@@ -34,6 +36,7 @@ func _on_WobbleTween_tween_completed(object, key):
 
 func shoot():
 	if not is_reloading:
+		$ShotAudio.play()
 		$GunFire.emitting = true
 		$ReloadTimer.start()
 		is_reloading = true
@@ -44,3 +47,6 @@ func shoot():
 
 func _on_ReloadTimer_timeout():
 	is_reloading = false
+
+func _on_ShotAudio_finished():
+	$ReloadAudio.play()

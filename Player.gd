@@ -14,6 +14,8 @@ var is_crouching = false
 var is_crawling = false
 var is_aiming = false
 
+var is_moving = false
+
 var hud
 var camera
 
@@ -68,6 +70,7 @@ func get_movement_input(delta):
 		rotation_degrees += Vector3(0, camera.rotation_degrees.y, 0)
 	
 	if movement > 0:
+		is_moving = true
 		var speed = 0
 		if is_standing:
 			speed = standing_speed
@@ -78,18 +81,22 @@ func get_movement_input(delta):
 		elif is_crawling:
 			speed = crawling_speed
 			crawl()
-		
 		velocity = lerp(velocity, movement * speed, acceleration) * delta
 	else:
+		is_moving = false
 		velocity = lerp(velocity, 0, friction) * delta
 		if is_standing and $AnimationPlayer.current_animation != "Idle" and $IdleTimer.is_stopped():
 			$IdleTimer.start()
+		if $AudioWalk.playing:
+			$AudioWalk.stop()
 	
 	translate(Vector3(0, 0, -velocity))
 
 func walk():
 	if $AnimationPlayer.current_animation != "Walk":
 		$AnimationPlayer.play("Walk")
+	if not $AudioWalk.playing:
+		$AudioWalk.play()
 
 func crouch():
 	if $AnimationPlayer.current_animation != "CrouchWalk":
@@ -176,10 +183,8 @@ func _on_VisionTimer_timeout():
 	for area in get_overlapping_areas():
 		if "Grass" in area.name:
 			has_grass_cover = true
-			break
 		if "Tree" in area.name:
 			has_tree_cover = true
-			break
 	
 	var level_of_cover = 0
 	if is_crawling:
@@ -198,6 +203,14 @@ func _on_VisionTimer_timeout():
 			level_of_cover = 0
 	
 	hud.update_vision_indicator(level_of_cover)
+	update_sounds(has_grass_cover)
+
+func update_sounds(in_grass):
+	if is_moving and in_grass:
+		if  not $AudioGrass.playing:
+			$AudioGrass.play()
+	else:
+		$AudioGrass.stop()
 
 func _on_IdleTimer_timeout():
 	if not $AnimationPlayer.is_playing() and is_standing and not is_aiming:

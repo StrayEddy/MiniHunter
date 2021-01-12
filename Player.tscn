@@ -1,10 +1,12 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/Material.material" type="Material" id=2]
 [ext_resource path="res://assets/models/Material_002.material" type="Material" id=3]
 [ext_resource path="res://assets/models/Material_001.material" type="Material" id=4]
 [ext_resource path="res://Rifle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sounds/walk.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/sounds/grass.wav" type="AudioStream" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 1.5, 1 )
@@ -60,7 +62,7 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=6]
 resource_name = "Aim"
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Armature/Skeleton/BoneAttachment/Rifle:translation:x")
@@ -123,7 +125,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 1 )
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=7]
 resource_name = "AimCrawl"
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Armature/Skeleton/BoneAttachment/Rifle:translation:x")
@@ -186,7 +188,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 1 )
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 length = 1.04167
 tracks/0/type = "transform"
 tracks/0/path = NodePath("Armature/Skeleton:head")
@@ -203,7 +205,7 @@ tracks/1/imported = true
 tracks/1/enabled = true
 tracks/1/keys = PoolRealArray( 0, 1, -0.467246, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 1, 1, 0.0666667, 1, -0.464998, 0.362925, 0, 0, 0, 0.704691, 0.709514, 1, 1, 1, 0.133333, 1, -0.449439, 0.350781, 0, 0, 0, 0.687551, 0.726136, 1, 1, 1, 0.2, 1, -0.418266, 0.326452, 0, 0, 0, 0.651082, 0.759007, 1, 1, 1, 0.333333, 1, -0.323714, 0.252654, 0, 0, 0, 0.523618, 0.851953, 1, 1, 1, 0.4, 1, -0.266628, 0.2081, 0, 0, 0, 0.435945, 0.899973, 1, 1, 1, 0.466667, 1, -0.207907, 0.162269, 0, 0, 0, 0.340243, 0.940338, 1, 1, 1, 0.6, 1, -0.0982312, 0.0766683, 0, 0, 0, 0.15661, 0.98766, 1, 1, 1, 0.666667, 1, -0.0534073, 0.0416837, 0, 0, 0, 0.0833328, 0.996522, 1, 1, 1, 0.733333, 1, -0.0211721, 0.0165246, 0, 0, 0, 0.0325162, 0.999471, 1, 1, 1, 0.8, 1, -0.00299731, 0.00233942, 0, 0, 0, 0.00454657, 0.99999, 1, 1, 1, 0.866667, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1.04167, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=9]
 length = 2.5
 tracks/0/type = "transform"
 tracks/0/path = NodePath("Armature/Skeleton:head")
@@ -220,7 +222,7 @@ tracks/1/imported = true
 tracks/1/enabled = true
 tracks/1/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.0666667, 1, 0, 0, 0, -0.0004155, -3.34419e-11, -5.96047e-08, 1, 1, 1, 1, 0.133333, 1, 0, 0, 0, -0.00318561, 1.89877e-10, -5.96043e-08, 0.999995, 1, 1, 1, 0.2, 1, 0, 0, 0, -0.00840024, -4.30596e-10, -5.96104e-08, 0.999965, 1, 1, 1, 0.4, 1, 0, 0, 0, -0.0282465, -1.8619e-09, -5.26061e-11, 0.999601, 1, 1, 1, 0.466667, 1, 0, 0, 0, -0.0329705, -3.72327e-09, -1.22817e-10, 0.999456, 1, 1, 1, 0.533333, 1, 0, 0, 0, -0.0350564, -5.35648e-09, -5.98292e-08, 0.999385, 1, 1, 1, 0.6, 1, 0, 0, 0, -0.0347503, -3.30352e-09, -1.19396e-07, 0.999396, 1, 1, 1, 0.666667, 1, 0, 0, 0, -0.0334193, -7.44642e-09, -2.48986e-10, 0.999442, 1, 1, 1, 0.733333, 1, 0, 0, 0, -0.0311187, -1.85482e-09, 5.95758e-08, 0.999516, 1, 1, 1, 0.8, 1, 0, 0, 0, -0.0280853, -3.72382e-09, -1.04623e-10, 0.999606, 1, 1, 1, 1.93333, 1, 0, 0, 0, 0.0457088, 8.30655e-09, 5.92869e-08, 0.998955, 1, 1, 1, 2, 1, 0, 0, 0, 0.0450611, 2.89641e-09, -5.97959e-08, 0.998984, 1, 1, 1, 2.06667, 1, 0, 0, 0, 0.0409505, 5.58325e-09, -2.28829e-10, 0.999161, 1, 1, 1, 2.13333, 1, 0, 0, 0, 0.0345362, 3.92005e-09, 5.95048e-08, 0.999403, 1, 1, 1, 2.4, 1, 0, 0, 0, 0.00423107, -9.31314e-10, 3.94049e-12, 0.999991, 1, 1, 1, 2.46667, 1, 0, 0, 0, 0.000617496, -2.06637e-09, 1.28308e-12, 1, 1, 1, 1, 2.5, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=10]
 length = 0.833333
 tracks/0/type = "transform"
 tracks/0/path = NodePath("Armature/Skeleton:head")
@@ -237,7 +239,7 @@ tracks/1/imported = true
 tracks/1/enabled = true
 tracks/1/keys = PoolRealArray( 0, 1, -0.467246, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 1, 1, 0.0666667, 1, -0.466204, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.998797, 1, 0.133333, 1, -0.458994, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.990472, 1, 0.2, 1, -0.444548, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.973794, 1, 0.733333, 1, -0.260529, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.761328, 1, 0.8, 1, -0.252106, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.751604, 1, 0.833333, 1, -0.250717, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1 )
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=11]
 length = 3.33333
 tracks/0/type = "transform"
 tracks/0/path = NodePath("Armature/Skeleton:head")
@@ -254,7 +256,7 @@ tracks/1/imported = true
 tracks/1/enabled = true
 tracks/1/keys = PoolRealArray( 0, 1, -0.250717, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 0.0666667, 1, -0.251043, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 0.133333, 1, -0.253296, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 0.2, 1, -0.257811, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 0.733333, 1, -0.315327, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 0.8, 1, -0.317959, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 0.866667, 1, -0.318001, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 0.933333, 1, -0.315612, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 1, 1, -0.311355, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 1.53333, 1, -0.255414, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 1.6, 1, -0.25205, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 1.66667, 1, -0.250717, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 1.73333, 1, -0.25205, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 1.8, 1, -0.255414, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 1.86667, 1, -0.260584, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 2.4, 1, -0.315612, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 2.46667, 1, -0.318001, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 2.53333, 1, -0.318001, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 2.6, 1, -0.315612, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 2.66667, 1, -0.311355, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 3.2, 1, -0.255414, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 3.26667, 1, -0.25205, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1, 3.33333, 1, -0.250717, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 0.75, 1 )
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
 length = 5.83333
 tracks/0/type = "transform"
 tracks/0/path = NodePath("Armature/Skeleton:head")
@@ -271,7 +273,7 @@ tracks/1/imported = true
 tracks/1/enabled = true
 tracks/1/keys = PoolRealArray( 0, 1, -0.467246, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 1, 1, 5.83333, 1, -0.467246, 0.36468, 0, 0, 0, 0.707107, 0.707107, 1, 1, 1 )
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=13]
 length = 3.33333
 tracks/0/type = "transform"
 tracks/0/path = NodePath("Armature/Skeleton:head")
@@ -330,27 +332,35 @@ skin = SubResource( 3 )
 material/0 = null
 
 [node name="BoneAttachment" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 1, 1.19209e-07, 0, -1.19209e-07, 1, 0, 0, 0, 1, 5.96046e-08, -2.98023e-08, 0 )
+transform = Transform( -1.19209e-07, 1, 0, -1, -1.19209e-07, 0, 0, 0, 1, -0.36468, -0.467246, 0 )
 bone_name = "chest"
 
 [node name="Rifle" parent="Armature/Skeleton/BoneAttachment" instance=ExtResource( 5 )]
 transform = Transform( 0.75, 7.59562e-09, 3.60625e-08, 7.59563e-09, 0.686283, -0.302515, -3.60625e-08, 0.302515, 0.686283, 0.590138, 0.481635, -0.113719 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Aim = SubResource( 12 )
-anims/AimCrawl = SubResource( 13 )
-anims/Crawl = SubResource( 6 )
-anims/CrawlWalk = SubResource( 7 )
-anims/Crouch = SubResource( 8 )
-anims/CrouchWalk = SubResource( 9 )
-anims/Idle = SubResource( 10 )
-anims/Walk = SubResource( 11 )
+anims/Aim = SubResource( 6 )
+anims/AimCrawl = SubResource( 7 )
+anims/Crawl = SubResource( 8 )
+anims/CrawlWalk = SubResource( 9 )
+anims/Crouch = SubResource( 10 )
+anims/CrouchWalk = SubResource( 11 )
+anims/Idle = SubResource( 12 )
+anims/Walk = SubResource( 13 )
 
 [node name="VisionTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.1
 autostart = true
 
 [node name="IdleTimer" type="Timer" parent="."]
+
+[node name="AudioWalk" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 6 )
+unit_db = 15.0
+
+[node name="AudioGrass" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 7 )
+unit_db = 20.0
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="VisionTimer" to="." method="_on_VisionTimer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
