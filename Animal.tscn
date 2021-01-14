@@ -30,11 +30,6 @@ shape = SubResource( 1 )
 [node name="DangerTimer" type="Timer" parent="."]
 autostart = true
 
-[node name="RayCastDownFront" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.1, 0 )
-enabled = true
-cast_to = Vector3( 0, -0.5, 0 )
-
 [node name="CalmTimer" type="Timer" parent="."]
 wait_time = 15.0
 autostart = true

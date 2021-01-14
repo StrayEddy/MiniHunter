@@ -183,7 +183,6 @@ func die():
 	$CalmTimer.queue_free()
 	$InjuryTimer.queue_free()
 	$Exclamation.queue_free()
-	$RayCastDownFront.queue_free()
 
 func retrieved():
 	player.retrieve_animal(100)

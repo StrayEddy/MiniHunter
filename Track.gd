@@ -7,18 +7,22 @@ func setup(pos, target, is_blood):
 	look_at_from_position(pos, target, Vector3.UP)
 	if is_blood:
 		$Blood.visible = true
-		$Footprints.visible = false
+		$Deer.visible = false
+		$Rabbit.visible = false
 	else:
 		$Blood.visible = false
-		$Footprints.visible = true
+		$Deer.visible = true
+		$Rabbit.visible = true
 
 func highlight(b):
 	if b:
 		$Blood.mesh.surface_set_material(0, highlighted_mat)
-		$Footprints.mesh.surface_set_material(0, highlighted_mat)
+		$Deer.mesh.surface_set_material(0, highlighted_mat)
+		$Rabbit.mesh.surface_set_material(0, highlighted_mat)
 	else:
 		$Blood.mesh.surface_set_material(0, default_mat)
-		$Footprints.mesh.surface_set_material(0, default_mat)
+		$Deer.mesh.surface_set_material(0, default_mat)
+		$Rabbit.mesh.surface_set_material(0, default_mat)
 
 func _on_Track_area_entered(area):
 	if area.name == "Player":
