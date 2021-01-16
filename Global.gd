@@ -14,3 +14,6 @@ func randb():
 	if randi() % 2:
 		b = false
 	return b
+
+func randrad():
+	return randf() * 2 * PI

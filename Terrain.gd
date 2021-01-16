@@ -13,21 +13,43 @@ func _ready():
 	build_terrain()
 
 func build_terrain():
-	add_trees()
-	add_multigrasses()
+	var noise = OpenSimplexNoise.new()
+	noise.seed = Global.rng.randi()
+	noise.octaves = 1
+	noise.period = 20.0
+	noise.persistence = 1.0
+	
+	var min_n = 0
+	var max_n = 0
+	
+	var nb_multigrass = 0
+	var nb_tree = 0
+	for x in range(0, 500, 10):
+		for z in range(0, 500, 10):
+			var value = noise.get_noise_2d(float(x), float(z))
+			if value < min_n:
+				min_n = value
+			elif value > max_n:
+				max_n = value
 
-func add_trees():
-	for i in range(0, nb_of_trees):
-		var tree = tree_scene.instance()
-		var rand_x = Global.rng.randf_range(-size/2, size/2)
-		var rand_z = Global.rng.randf_range(-size/2, size/2)
-		tree.translate(Vector3(rand_x, 0, rand_z))
-		$Trees.add_child(tree)
+			if value > 0:
+				add_multigrass(x-250 + randf()*10, z-250 + randf()*10)
+				nb_multigrass += 1
+				if value > 0.4:
+					add_tree(x-250 + randf()*10, z-250 + randf()*10)
+					nb_tree += 1
 
-func add_multigrasses():
-	for i in range(0, nb_of_multigrasses):
-		var multigrass = multigrass_scene.instance()
-		var rand_x = Global.rng.randf_range(-size/2, size/2)
-		var rand_z = Global.rng.randf_range(-size/2, size/2)
-		multigrass.translate(Vector3(rand_x, 0, rand_z))
-		$Grasses.add_child(multigrass)
+	print(nb_multigrass)
+	print(nb_tree)
+
+func add_multigrass(x,z):
+	var multigrass = multigrass_scene.instance()
+	multigrass.translate(Vector3(x, 0, z))
+	multigrass.rotate_y(Global.randrad())
+	$Grasses.add_child(multigrass)
+
+func add_tree(x,z):
+	var tree = tree_scene.instance()
+	tree.translate(Vector3(x, 0, z))
+	tree.rotate_y(Global.randrad())
+	$Trees.add_child(tree)
