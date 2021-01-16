@@ -20,6 +20,12 @@ func _process(delta):
 func add_animal():
 	var animal = animal_scene.instance()
 	animal.translation = Vector3(Global.rng.randf_range(-size/2, size/2), 0, Global.rng.randf_range(-size/2, size/2))
+	
+	if Global.randb():
+		animal.setup("Deer")
+	else:
+		animal.setup("Rabbit")
+	
 	add_child(animal)
 	
 	animal_count += 1

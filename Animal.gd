@@ -12,6 +12,9 @@ var health_points = 1.0 + Global.rng.randf() / 3
 var is_injured = false
 var is_dead = false
 
+var animal_type = ""
+var track_length
+
 var player
 var hud
 var animals
@@ -23,14 +26,31 @@ func _ready():
 	player = get_tree().get_nodes_in_group("Player")[0]
 	hud = get_tree().get_nodes_in_group("HUD")[0]
 	animals = get_parent()
-	$Deer/AnimationPlayer.connect("animation_finished", self, "on_animation_finished")
 	build_path_of_tracks()
+
+func setup(animal_type):
+	self.animal_type = animal_type
+	
+	match animal_type:
+		"Deer":
+			walk_speed = 5
+			flee_speed = 15
+			health_points = 1.0 + Global.rng.randf() / 3
+			track_length = 100
+			$Deer/AnimationPlayer.connect("animation_finished", self, "on_animation_finished")
+			$Rabbit.queue_free()
+		"Rabbit":
+			walk_speed = 2
+			flee_speed = 7
+			health_points = 1.0
+			track_length = 50
+			$Deer.queue_free()
 
 func build_curve():
 	var curve = Curve3D.new()
 	var nb_points = 5 + Global.rng.randi()%3
 	var min_x = 0
-	var max_x = 100
+	var max_x = track_length
 	var min_z = -25
 	var max_z = 25
 	
@@ -59,7 +79,7 @@ func build_path_of_tracks():
 
 func add_track_at(point, target, is_blood):
 	var track = track_scene.instance()
-	track.setup(point, target, is_blood)
+	track.setup(animal_type, point, target, is_blood)
 	path_of_tracks.add_child(track)
 
 func _process(delta):
@@ -73,29 +93,14 @@ func move(speed):
 	translate(Vector3(0,0,-1) * speed)
 
 func _on_DangerTimer_timeout():
-	var new_alert_level = 0
 	
-	if hud.level_of_cover == 2:
-		if distance_to_player() < 10: 
-			new_alert_level = 3
-		elif distance_to_player() < 20:
-			new_alert_level = 2
-		elif distance_to_player() < 30:
-			new_alert_level = 1
-	if hud.level_of_cover == 1:
-		if distance_to_player() < 20: 
-			new_alert_level = 3
-		elif distance_to_player() < 30:
-			new_alert_level = 2
-		elif distance_to_player() < 40:
-			new_alert_level = 1
-	if hud.level_of_cover == 0:
-		if distance_to_player() < 30: 
-			new_alert_level = 3
-		elif distance_to_player() < 40:
-			new_alert_level = 2
-		elif distance_to_player() < 50:
-			new_alert_level = 1
+	var new_alert_level 
+	
+	match animal_type:
+		"Deer":
+			new_alert_level = $Deer.get_level_of_alert()
+		"Rabbit":
+			new_alert_level = $Rabbit.get_level_of_alert()
 	
 	if new_alert_level > level_of_alert:
 		level_of_alert = new_alert_level
@@ -121,29 +126,59 @@ func distance_to_player():
 
 func eat():
 	state = "eating"
-	if $Deer/AnimationPlayer.current_animation != "Eat":
-		$Deer/AnimationPlayer.play("Eat")
-		$Exclamation.visible = false
+	
+	match animal_type:
+		"Deer":
+			if $Deer/AnimationPlayer.current_animation != "Eat":
+				$Deer/AnimationPlayer.play("Eat")
+				$Exclamation.visible = false
+		"Rabbit":
+			if $Rabbit/AnimationPlayer.current_animation != "Eat":
+				$Rabbit/AnimationPlayer.play("Eat")
+				$Exclamation.visible = false
 
 func check():
 	state = "checking"
-	if $Deer/AnimationPlayer.current_animation != "Idle":
-		$Deer/AnimationPlayer.play("Idle")
-		$Exclamation.visible = true
+	
+	match animal_type:
+		"Deer":
+			if $Deer/AnimationPlayer.current_animation != "Idle":
+				$Deer/AnimationPlayer.play("Idle")
+				$Exclamation.visible = true
+		"Rabbit":
+			if $Rabbit/AnimationPlayer.current_animation != "Idle":
+				$Rabbit/AnimationPlayer.play("Idle")
+				$Exclamation.visible = true
 
 func walk():
 	state = "walking"
-	if $Deer/AnimationPlayer.current_animation != "Walk":
-		$Deer/AnimationPlayer.play("Walk")
-		$Exclamation.visible = true
-		update_rotation()
+	
+	match animal_type:
+		"Deer":
+			if $Deer/AnimationPlayer.current_animation != "Walk":
+				$Deer/AnimationPlayer.play("Walk")
+				$Exclamation.visible = true
+				update_rotation()
+		"Rabbit":
+			if $Rabbit/AnimationPlayer.current_animation != "Walk":
+				$Rabbit/AnimationPlayer.play("Walk")
+				$Exclamation.visible = true
+				update_rotation()
 
 func flee():
 	state = "fleeing"
-	if $Deer/AnimationPlayer.current_animation != "Jump" and $Deer/AnimationPlayer.current_animation != "Fall":
-		$Deer/AnimationPlayer.play("Jump")
-		$Exclamation.visible = true
-		update_rotation()
+	
+	match animal_type:
+		"Deer":
+			if $Deer/AnimationPlayer.current_animation != "Jump" and $Deer/AnimationPlayer.current_animation != "Fall":
+				$Deer/AnimationPlayer.play("Jump")
+				$Exclamation.visible = true
+				update_rotation()
+		"Rabbit":
+			if $Rabbit/AnimationPlayer.current_animation != "Run":
+				$Rabbit/AnimationPlayer.play("Run")
+				$Exclamation.visible = true
+				update_rotation()
 
 func on_animation_finished(anim_name):
 	if anim_name == "Jump":
@@ -178,14 +213,24 @@ func lose_health(points):
 
 func die():
 	is_dead = true
-	$Deer/AnimationPlayer.play("Die")
+	
+	match animal_type:
+		"Deer":
+			$Deer/AnimationPlayer.play("Die")
+		"Rabbit":
+			$Rabbit/AnimationPlayer.play("Die")
+	
 	$DangerTimer.queue_free()
 	$CalmTimer.queue_free()
 	$InjuryTimer.queue_free()
 	$Exclamation.queue_free()
 
 func retrieved():
-	player.retrieve_animal(100)
+	match animal_type:
+		"Deer":
+			player.retrieve_animal(100)
+		"Rabbit":
+			player.retrieve_animal(50)
 	queue_free()
 
 func _on_InjuryTimer_timeout():

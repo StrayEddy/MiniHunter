@@ -2,17 +2,20 @@ extends Area
 
 var default_mat = load("res://assets/models/Tracks_default.material")
 var highlighted_mat = load("res://assets/models/Tracks_highlighted.material")
+var animal_type
 
-func setup(pos, target, is_blood):
+func setup(animal_type, pos, target, is_blood):
+	self.animal_type = animal_type
+	
 	look_at_from_position(pos, target, Vector3.UP)
 	if is_blood:
 		$Blood.visible = true
-		$Deer.visible = false
-		$Rabbit.visible = false
 	else:
-		$Blood.visible = false
-		$Deer.visible = true
-		$Rabbit.visible = true
+		match animal_type:
+			"Deer":
+				$Deer.visible = true
+			"Rabbit":
+				$Rabbit.visible = true
 
 func highlight(b):
 	if b:
