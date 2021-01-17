@@ -8,7 +8,7 @@ metallic_specular = 1.0
 
 [sub_resource type="PlaneMesh" id=2]
 material = SubResource( 1 )
-size = Vector2( 500, 500 )
+size = Vector2( 1000, 1000 )
 
 [node name="Terrain" type="Spatial"]
 script = ExtResource( 2 )
@@ -20,3 +20,8 @@ material/0 = null
 [node name="Grasses" type="Spatial" parent="."]
 
 [node name="Trees" type="Spatial" parent="."]
+
+[node name="FoliageTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+[connection signal="timeout" from="FoliageTimer" to="." method="_on_FoliageTimer_timeout"]
